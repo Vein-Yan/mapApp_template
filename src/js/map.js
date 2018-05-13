@@ -3,7 +3,7 @@ import View from 'ol/view';
 import TileLayer from 'ol/layer/tile';
 import XYZ from 'ol/source/xyz';
 import VectorLayer from 'ol/layer/vector';
-import Vector from 'ol/source/vector';
+import VectorSource from 'ol/source/vector';
 import Point from 'ol/geom/point';
 import Feature from 'ol/feature';
 import Style from 'ol/style/style';
@@ -11,17 +11,17 @@ import Circle from 'ol/style/circle';
 import Fill from 'ol/style/fill';
 import Stroke from 'ol/style/stroke';
 import Icon from 'ol/style/icon'
-import proj from 'ol/proj';
+//import proj from 'ol/proj';
 
 import 'ol/ol.css';
 import '../css/map.css';
 
-import icon from '../img/icon.png';
+import icon from '../img/icon_red.png';
 
 
 let circleStyle = new Style({
     image: new Circle({
-        radius: 7,
+        radius: 10,
         snapToPixel: false,
         fill: new Fill({
             color: 'black'
@@ -34,16 +34,16 @@ let circleStyle = new Style({
 });
 let markerStyle = new Style({
     image: new Icon({
-        anchor: [0.5, 46],
+        anchor: [0.5, 0.5],
         anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
+        anchorYUnits: 'fraction',
         src: icon
     })
 })
 
-let vector = new Vector();
+let vectorSource = new VectorSource();
 let vectorLayer = new VectorLayer({
-    source: vector
+    source: vectorSource
 });
 
 let map = new Map({
@@ -57,7 +57,7 @@ let map = new Map({
         vectorLayer
     ],
     view: new View({
-        center:  [105, 34],
+        center:  [0,0],
         zoom: 3,
         minZoom: 3, 
         maxZoom: 20,
@@ -77,7 +77,7 @@ for (let i = 0, len = points.length; i < len; i++) {
         geometry: geometry
     });
     feature.setStyle(markerStyle);
-    vector.addFeature(feature);
+    vectorSource.addFeature(feature);
 }
 
 export default map;
